@@ -19,7 +19,7 @@ This type of system is useful for:
 
 Chat applications
 
-Live notifications
+Live notifications 
 
 Real-time updates
 
