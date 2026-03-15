@@ -218,10 +218,9 @@ Now you can send and receive real-time messages.
 
      How to send messages between client and server
 
+    How to broadcast messages to multiple users
 
-How to broadcast messages to multiple users
-
-    How to build real-time applications
+     How to build real-time applications
 
 
 Summary
