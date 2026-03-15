@@ -1,26 +1,58 @@
- Spring Boot WebSocket Notification Project
- Project Overview
+Spring Boot WebSocket Notification System
+Overview
 
-This project shows how to create real-time communication using WebSocket in Spring Boot.
+This project shows how to build a real-time notification system using Spring Boot and WebSocket.
 
-Normally in web applications, the client sends a request and the server responds.
+In normal web applications, the client sends a request and the server responds.
+
 But in WebSocket, the server can send messages to clients instantly without waiting for a request.
 
 In this project:
 
-A client sends a message to the server.
+A client sends a message to the server
 
-The server receives it.
+The server receives the message
 
-The server sends that message to all connected clients.
+The server sends that message to all connected clients
 
-This is useful for chat apps, live notifications, or live updates.
+This type of system is useful for:
 
- Technologies Used
+Chat applications
 
-Java
+Live notifications
+
+Real-time updates
+
+Project Tutorial (Video)
+
+If you want to understand how this project works step-by-step, you can watch this tutorial video:
+
+https://youtu.be/sqYqyr6EpAU?si=Ja7gmzAMZQXY9oQQ
+
+Project Architecture
+
+Client (Browser)
+↓
+WebSocket Connection
+↓
+Spring Boot Application
+↓
+Notification Controller
+↓
+Message Broker
+↓
+Broadcast Message
+↓
+All Connected Clients
+
+Technologies Used
+Backend
 
 Spring Boot
+
+Spring Web
+
+Real-time Communication
 
 Spring WebSocket
 
@@ -28,167 +60,167 @@ STOMP Protocol
 
 SockJS
 
+Frontend
+
+HTML
+
+JavaScript
+
+Build Tool
+
 Maven
 
- Project Dependencies
+Project Structure
+src/main/java/com/notifications
 
-Dependencies are written in pom.xml.
+config
+   WebSocketConfig
 
-1. Spring Web
+controller
+   NotificationController
 
-Used to create web applications and REST APIs.
+main
+   NotificationSystemApplication
 
-<dependency>
- <groupId>org.springframework.boot</groupId>
- <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-2. Spring WebSocket
+resources
+   templates
+      index.html
+Important Concepts
+WebSocket
 
-Used to enable real-time communication between client and server.
+WebSocket allows two-way communication between client and server.
 
-<dependency>
- <groupId>org.springframework.boot</groupId>
- <artifactId>spring-boot-starter-websocket</artifactId>
-</dependency>
-3. Thymeleaf
+The connection stays open, so the server can send messages to the client at any time.
 
-Used to create HTML pages for the frontend.
+This is useful for:
 
-<dependency>
- <groupId>org.springframework.boot</groupId>
- <artifactId>spring-boot-starter-thymeleaf</artifactId>
-</dependency>
-📁 Project Structure
-src
- └── main
-      ├── java
-      │     └── com.websocket
-      │            ├── config
-      │            │     └── WebSocketConfig.java
-      │            │
-      │            ├── controller
-      │            │     └── NotificationController.java
-      │            │
-      │            └── NotificationSystemApplication.java
-      │
-      └── resources
-            └── templates
-                  └── index.html
- How the Project Works (Step by Step)
-🔹 Step 1: Enable WebSocket
+live updates
 
-In the configuration class we enable WebSocket using:
+messaging systems
 
-@EnableWebSocketMessageBroker
+notification systems
 
-This tells Spring Boot that WebSocket messaging will be used in the project.
+STOMP Protocol
 
-🔹 Step 2: Configure WebSocket
+This project uses STOMP messaging protocol with WebSocket.
 
-File:
+STOMP helps manage messages between the client and server using topics and subscriptions.
+
+WebSocket Configuration
+
+WebSocket configuration is written in:
 
 WebSocketConfig.java
 
-This class configures:
+This class does three main things:
 
-WebSocket endpoint
+Enable WebSocket communication
 
-Message broker
+Configure message broker
 
-Client communication
+Create WebSocket connection endpoint
 
-Example:
+Important paths used in the project:
 
-config.enableSimpleBroker("/topic");
-config.setApplicationDestinationPrefixes("/app");
-Explanation
-Path	Meaning
-/app	client sends message to server
-/topic	server sends message to clients
-🔹 Step 3: WebSocket Endpoint
+Client sends message to:
 
-In configuration we create an endpoint:
-
-registry.addEndpoint("/ws").withSockJS();
-
-This endpoint is used by clients to connect to WebSocket.
-
-Client connection URL:
-
-http://localhost:8080/ws
-🔹 Step 4: Create Controller
-
-File:
-
-NotificationController.java
-
-This controller handles messages from clients.
-
-Example:
-
-@MessageMapping("/sendMessage")
-@SendTo("/topic/notifications")
-Explanation
-Annotation	Purpose
-@MessageMapping	receives message from client
-@SendTo	sends message to all clients
-Method Example
-public String sendMessage(String message){
-    System.out.println("Message: " + message);
-    return message;
-}
-
-Flow:
-
-Client sends message
-
-Server receives message
-
-Server broadcasts message to all clients
-
-🔄 Message Flow
-Client
-   │
-   │ send message
-   ▼
 /app/sendMessage
-   │
-   ▼
-Server Controller
-   │
-   │ broadcast
-   ▼
+
+Server sends message to clients:
+
 /topic/notifications
-   │
-   ▼
-All Connected Clients
-▶️ How to Run the Project
-1. Clone the project
-git clone your-project-link
-2. Run the project
+
+WebSocket connection endpoint:
+
+/ws
+
+SockJS is also used to support browsers that do not support WebSocket.
+
+Message Flow
+
+Step 1
+Client sends a message
+
+↓
+
+Step 2
+Server receives the message in the controller
+
+↓
+
+Step 3
+Server broadcasts the message
+
+↓
+
+Step 4
+All connected clients receive the message instantly
+
+Example
+
+User sends message
+
+Hello Server
+
+Server broadcasts
+
+Hello Server
+
+All connected users receive the message.
+
+Running the Project
+Prerequisites
+
+You need:
+
+Java 17+
+
+Maven
+
+1 Clone the project
+git clone https://github.com/sheetalrajkumariri/websocket-notification-system.git
+2 Go to project folder
+cd websocket-notification-system
+3 Run the project
 mvn spring-boot:run
 
 or run the main class:
 
-NotificationSystemApplication.java
-3. Open browser
+NotificationSystemApplication
+4 Open the application
+
+Open browser and go to:
+
 http://localhost:8080
- Where This Project Can Be Used
 
-This project idea can be used in:
+Now you can send and receive real-time messages.
 
-Chat applications
+Key Features
 
-Live notifications
+Real-time messaging using WebSocket
 
-Stock market updates
+Server can send messages instantly
 
-Order status updates
+Multiple clients receive the same message
 
-Multiplayer games
+STOMP messaging protocol support
 
- Conclusion
+Simple Spring Boot architecture
+
+What You Learn From This Project
+
+From this project you can learn:
+
+How WebSocket works in Spring Boot
+
+How to send messages between client and server
+
+How to broadcast messages to multiple users
+
+How to build real-time applications
+
+Summary
 
 This project demonstrates how to build a real-time notification system using Spring Boot WebSocket.
 
-WebSocket allows instant communication between server and clients, which is very useful for modern applications.
+WebSocket allows instant communication between server and clients, which is very useful for modern web applications.
