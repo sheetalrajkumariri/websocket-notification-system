@@ -1,4 +1,4 @@
-package com.javatechie.config;
+package com.notifications.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
